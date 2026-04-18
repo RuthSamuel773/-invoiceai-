@@ -206,8 +206,7 @@ function ProposalWriter() {
       } finally {
         setLoading(false);
       }
-    }
-    }
+  
   
 
   function copy() {
