@@ -186,35 +186,29 @@ function ProposalWriter() {
   const [error,     setError]     = useState("");
 
   async function generate() {
-    if (!project.trim()) { setError("Please describe your project first."); return; }
-    setError(""); setLoading(true); setProposal("");
-    try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: ANTHROPIC_MODEL,
-          max_tokens: 1000,
-          messages: [{
-            role: "user",
-            content: `Write a professional freelance project proposal for the following:
-
-Project: ${project}
-Client: ${client || "the client"}
-Budget: ${budget || "to be discussed"}
-Timeline: ${timeline || "to be agreed"}
-
-Write a polished, concise proposal (around 300 words) including: a brief intro, your understanding of the project, your proposed approach (3-4 bullet points), deliverables, timeline, and a call to action. Use professional but warm language. Do NOT use markdown headers with ##. Use plain text with clear sections.`
-          }]
-        })
-      });
-      const data = await res.json();
-      setProposal(data.content?.[0]?.text || "Could not generate proposal. Check your API key.");
-    } catch {
-      setProposal("Network error. Please try again.");
+      if (!project.trim()) { setError("Please describe your project first."); return; }
+      setError(""); setLoading(true); setProposal("");
+      try {
+        const res = await fetch("/api/generate-proposal", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            description: project,
+            clientName: client,
+            budget,
+            timeline,
+          })
+        });
+        const data = await res.json();
+        setProposal(data.proposal || "Could not generate proposal. Check your API key.");
+      } catch {
+        setProposal("Network error. Please try again.");
+      } finally {
+        setLoading(false);
+      }
     }
-    setLoading(false);
-  }
+    }
+  
 
   function copy() {
     navigator.clipboard.writeText(proposal);
