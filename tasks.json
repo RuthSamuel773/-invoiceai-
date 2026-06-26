@@ -1,0 +1,27 @@
+[
+  {
+    "content": "[setup-1] Request secrets (Google Client ID, Stripe, Session)",
+    "id": "setup-1",
+    "status": "completed"
+  },
+  {
+    "content": "[setup-2] Install Python + Node dependencies",
+    "id": "setup-2",
+    "status": "completed"
+  },
+  {
+    "content": "[backend-1] Build full backend: DB schema + auth + invoices + proposals + Stripe routes",
+    "id": "backend-1",
+    "status": "completed"
+  },
+  {
+    "content": "[frontend-1] Build full React frontend: Login, Dashboard, Invoices, Proposals pages",
+    "id": "frontend-1",
+    "status": "completed"
+  },
+  {
+    "content": "[test-1] Start app, verify all routes work",
+    "id": "test-1",
+    "status": "completed"
+  }
+]
