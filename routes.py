@@ -122,9 +122,11 @@ def create_app(static_dir: str) -> FastAPI:
             raise HTTPException(status_code=401, detail="Invalid token")
 
     # --- Gemini client ---
+    _gemini_base_url = os.environ.get("GEMINI_WORKSHOP_BASE_URL")
+    _gemini_http_opts = {"base_url": _gemini_base_url} if _gemini_base_url else {}
     gemini_client = genai.Client(
-        api_key=os.environ.get("GEMINI_WORKSHOP_API_KEY"),
-        http_options={"base_url": os.environ.get("GEMINI_WORKSHOP_BASE_URL")}
+        api_key=os.environ.get("GEMINI_WORKSHOP_API_KEY") or os.environ.get("GEMINI_API_KEY"),
+        http_options=_gemini_http_opts
     )
 
     # --- Stripe key ---
