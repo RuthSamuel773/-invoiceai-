@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "bun run build",
+  "buildCommand": "npm install && npm run build",
   "outputDirectory": "dist",
   "functions": {
     "api/index.py": {
