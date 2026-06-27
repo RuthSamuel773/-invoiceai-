@@ -3,7 +3,8 @@
   "outputDirectory": "dist",
   "buildCommand": "npm install && npx vite build",
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/index" },
-    { "src": "/(.*)", "dest": "/index.html" }
+{ "src": "/api/(.*)", "dest": "/api/index" },
+{ "src": "/assets/(.*)", "dest": "/assets/$1" },
+{ "src": ".*", "dest": "/index.html" }
   ]
 }
